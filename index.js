@@ -85,16 +85,15 @@ document.getElementById('loadImgContainer').style.height = width * 0.5625 + "px"
         cxt.fill();
         j += 0.4;
     }
-    document.getElementById('cover').style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
+    document.getElementById('cover').style.cssText = "opacity:0;-webkit-opacity:0;filter:alpha(opacity=0);";
     var a = setInterval(function() {
         draw();
-        var top = parseFloat(document.getElementById('load2Container').style.top);
-        document.getElementById('load2Container').style.top = top - 1 + '%';
-        if (parseFloat(document.getElementById('load2Container').style.top) <= 19.8) {
+        var top = parseFloat(document.getElementById('loadImgCover').style.top);
+        document.getElementById('loadImgCover').style.top = top - 1 + "%";
+        if (top <= 5) {
             clearInterval(a);
-            document.getElementById('cover').style.display = "none";
-            document.getElementById('wave').style.opacity = 0;
-            document.getElementById('wave').style.display = "none";
+            document.getElementById('loadImgCover').style.top = "5%";
+            document.getElementById('loadImgCover').style.opacity = 0;
         }
     }, 20);
 })();
@@ -140,7 +139,7 @@ function getAttrEle(boxList, attr, value) {
         }
     }
 }
-var allIconList = document.getElementById('listContainer').getElementsByTagName('span');
+var allIconList = document.getElementById('listContainer').getElementsByTagName('li');
 var mainBox = document.getElementsByClassName('mainBox');
 var iconList = getUsefulList(allIconList, "val");
 //介绍
@@ -150,8 +149,7 @@ var intrTextList = getUsefulList(document.getElementById('intrRight').getElement
 //组别
 var groupImgContainer = document.getElementById('groupImgContainer');
 var groupButtonList = getUsefulList(document.getElementById('groupButton').getElementsByTagName('a'), "check");
-var groupNameImgList = document.getElementById('groupNameContainer').getElementsByTagName('img');
-var groupIntrContentList = document.getElementById('groupIntrContent').getElementsByTagName('p');
+var groupIntrList = document.getElementById('groupIntr').getElementsByTagName('li');
 var groupUp = document.getElementById('groupArrowUp');
 var groupDown = document.getElementById('groupArrowDown');
 //大事件
@@ -227,11 +225,11 @@ function changeSectionTwo(boxList1, boxList2, buttonList) {
                 if (buttonList[k].getAttribute("check") === "false") {
                     if (k === 1) {
                         for (i = 0; i < boxList1.length; i++) {
-                            boxList1[i].setAttribute("aspect", "f");
+                            boxList1[i].setAttribute("aspect", "fan");
                         }
                     } else {
                         for (i = 0; i < boxList1.length; i++) {
-                            boxList1[i].setAttribute("aspect", "z");
+                            boxList1[i].setAttribute("aspect", "zheng");
                         }
                     }
                     boxList2[activeIndex].style.cssText += "opacity:0;-webkit-opacity:0;-moz-opacity: 0.5;-khtml-opacity: 0.5;filter:alpha(opacity=50);";
@@ -245,7 +243,7 @@ function changeSectionTwo(boxList1, boxList2, buttonList) {
     }
 }
 
-function changeSectionThree(box, boxList1, boxList2, buttonList) {
+function changeSectionThree(box, boxList, buttonList) {
     for (var k = 0; k < buttonList.length; k++) {
         var activeIndex;
         buttonList[k].onclick = (function(k) {
@@ -260,10 +258,8 @@ function changeSectionThree(box, boxList1, boxList2, buttonList) {
                     box.style.cssText += "top:" + -k * 100 + "%";
                     buttonList[k].setAttribute("check", "true");
                     buttonList[activeIndex].setAttribute("check", "false");
-                    boxList1[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
-                    boxList2[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
-                    boxList1[k].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
-                    boxList2[k].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
+                    boxList[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;filter:alpha(opacity=0);";
+                    boxList[k].style.cssText = "opacity:1;-webkit-opacity:1;filter:alpha(opacity=100);";
                     activeIndex = k;
                 }
             }
@@ -304,7 +300,7 @@ function changeYear(prevIndex, activeIndex) {
                     yearBottom.style.top = "50%";
                 }
             }, 20);
-        }, 1000);
+        }, 800);
         yearTop.setAttribute('value', "bottom");
         yearCenter.setAttribute('value', 'top');
         yearBottom.setAttribute('value', 'center');
@@ -411,11 +407,25 @@ function prevSection() {
 function scrollSection(event) {
     event = event || window.event;
     var delta = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+    var curryKey = event.keyCode || event.which || event.charCode;
     if (!animated) {
-        if (delta > 0) {
-            prevSection();
-        } else if (delta < 0) {
-            nextSection();
+        if (delta) {
+            if (delta > 0) {
+                prevSection();
+            } else if (delta < 0) {
+                nextSection();
+            }
+        } else if (curryKey) {
+            switch (curryKey) {
+                case 40:
+                    nextSection();
+                    break;
+                case 38:
+                    prevSection();
+                    break;
+                default:
+                    break;
+            }
         }
         animated = true;
         setTimeout(function() {
@@ -435,11 +445,11 @@ function prevSectionTwo() {
     if (activeIndex > 0) {
         if (activeIndex === 0) {
             for (i = 0; i < intrImgList.length; i++) {
-                intrImgList[i].setAttribute("aspect", "f");
+                intrImgList[i].setAttribute("aspect", "fan");
             }
         } else {
             for (i = 0; i < intrImgList.length; i++) {
-                intrImgList[i].setAttribute("aspect", "z");
+                intrImgList[i].setAttribute("aspect", "zheng");
             }
         }
         intrTextList[activeIndex].style.cssText += "opacity:0;-webkit-opacity:0;-moz-opacity: 0.5;-khtml-opacity: 0.5;filter:alpha(opacity=50);";
@@ -465,11 +475,11 @@ function nextSectionTwo() {
         nextStatus = false;
         if (activeIndex === 0) {
             for (i = 0; i < intrImgList.length; i++) {
-                intrImgList[i].setAttribute("aspect", "f");
+                intrImgList[i].setAttribute("aspect", "fan");
             }
         } else {
             for (i = 0; i < intrImgList.length; i++) {
-                intrImgList[i].setAttribute("aspect", "z");
+                intrImgList[i].setAttribute("aspect", "zheng");
             }
         }
         intrTextList[activeIndex].style.cssText += "opacity:0;-webkit-opacity:0;-moz-opacity: 0.5;-khtml-opacity: 0.5;filter:alpha(opacity=50);";
@@ -486,11 +496,25 @@ function nextSectionTwo() {
 function scrollSectionTwo(event) {
     event = event || window.event;
     var delta = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+    var curryKey = event.keyCode || event.which || event.charCode;
     if (!animated) {
-        if (delta > 0) {
-            prevSectionTwo();
-        } else if (delta < 0) {
-            nextSectionTwo();
+        if (delta) {
+            if (delta > 0) {
+                prevSection();
+            } else if (delta < 0) {
+                nextSection();
+            }
+        } else if (curryKey) {
+            switch (curryKey) {
+                case 40:
+                    nextSectionTwo();
+                    break;
+                case 38:
+                    prevSectionTwo();
+                    break;
+                default:
+                    break;
+            }
         }
         animated = true;
         setTimeout(function() {
@@ -511,10 +535,8 @@ function nextSectionThree() {
         groupImgContainer.style.cssText += "top:" + -(activeIndex + 1) * 100 + "%";
         groupButtonList[activeIndex + 1].setAttribute("check", "true");
         groupButtonList[activeIndex].setAttribute("check", "false");
-        groupNameImgList[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
-        groupIntrContentList[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
-        groupNameImgList[activeIndex + 1].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
-        groupIntrContentList[activeIndex + 1].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
+        groupIntrList[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
+        groupIntrList[activeIndex + 1].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
     } else {
         removeScrollEvent(document.body, scrollSectionThree, false);
         nextSection();
@@ -534,10 +556,8 @@ function prevSectionThree() {
         groupImgContainer.style.cssText += "top:" + -(activeIndex - 1) * 100 + "%";
         groupButtonList[activeIndex - 1].setAttribute("check", "true");
         groupButtonList[activeIndex].setAttribute("check", "false");
-        groupNameImgList[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
-        groupIntrContentList[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
-        groupNameImgList[activeIndex - 1].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
-        groupIntrContentList[activeIndex - 1].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
+        groupIntrList[activeIndex].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
+        groupIntrList[activeIndex - 1].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
     } else {
         removeScrollEvent(document.body, scrollSectionThree, false);
         prevSection(mainBox, iconList);
@@ -548,11 +568,25 @@ function prevSectionThree() {
 function scrollSectionThree(event) {
     event = event || window.event;
     var delta = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+    var curryKey = event.keyCode || event.which || event.charCode;
     if (!animated) {
-        if (delta > 0) {
-            prevSectionThree();
-        } else if (delta < 0) {
-            nextSectionThree();
+        if (delta) {
+            if (delta > 0) {
+                prevSection();
+            } else if (delta < 0) {
+                nextSection();
+            }
+        } else if (curryKey) {
+            switch (curryKey) {
+                case 40:
+                    nextSectionThree();
+                    break;
+                case 38:
+                    prevSectionThree();
+                    break;
+                default:
+                    break;
+            }
         }
         animated = true;
         setTimeout(function() {
@@ -605,11 +639,25 @@ function prevSectionFour() {
 function scrollSectionFour(event) {
     event = event || window.event;
     var delta = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+    var curryKey = event.keyCode || event.which || event.charCode;
     if (!animated) {
-        if (delta > 0) {
-            prevSectionFour();
-        } else if (delta < 0) {
-            nextSectionFour();
+        if (delta) {
+            if (delta > 0) {
+                prevSection();
+            } else if (delta < 0) {
+                nextSection();
+            }
+        } else if (curryKey) {
+            switch (curryKey) {
+                case 40:
+                    nextSectionFour();
+                    break;
+                case 38:
+                    prevSectionFour();
+                    break;
+                default:
+                    break;
+            }
         }
         animated = true;
         setTimeout(function() {
@@ -620,17 +668,23 @@ function scrollSectionFour(event) {
 
 function judge(prevIndex, activeIndex) {
     removeScrollEvent(document.body, scrollSection, false);
+    removeEvent(document, "keydown", scrollSection, false);
     switch (prevIndex) {
         case 0:
             break;
         case 1:
             removeScrollEvent(document.body, scrollSectionTwo, false);
+            removeEvent(document, "keydown", scrollSectionTwo, false);
             break;
         case 2:
             removeScrollEvent(document.body, scrollSectionThree, false);
+            removeEvent(document, "keydown", scrollSectionThree, false);
+            removeEvent(groupUp, "click", prevSectionThree, false);
+            removeEvent(groupDown, "click", nextSectionThree, false);
             break;
         case 3:
             removeScrollEvent(document.body, scrollSectionFour, false);
+            removeEvent(document, "keydown", scrollSectionFour, false);
             break;
         case 4:
             //removeScrollEvent(document.body, scrollSectionFive, false);
@@ -644,18 +698,24 @@ function judge(prevIndex, activeIndex) {
     switch (activeIndex) {
         case 0:
             addScrollEvent(document.body, scrollSection, false);
+            addEvent(document, "keydown", scrollSection, false);
             break;
         case 1:
             addScrollEvent(document.body, scrollSectionTwo, false);
+            addEvent(document, "keydown", scrollSectionTwo, false);
             changeSectionTwo(intrImgList, intrTextList, intrButtonList);
             break;
         case 2:
             addScrollEvent(document.body, scrollSectionThree, false);
-            changeSectionThree(groupImgContainer, groupNameImgList, groupIntrContentList, groupButtonList);
+            addEvent(document, "keydown", scrollSectionThree, false);
+            changeSectionThree(groupImgContainer, groupIntrList, groupButtonList);
+            addEvent(groupUp, "click", prevSectionThree, false);
+            addEvent(groupDown, "click", nextSectionThree, false);
             break;
         case 3:
             judgeYear(0);
             changeSectionFour(yearList, eventButtonList);
+            addEvent(document, "keydown", scrollSectionFour, false);
             addScrollEvent(document, scrollSectionFour, false);
             break;
         case 4:
@@ -671,5 +731,4 @@ function judge(prevIndex, activeIndex) {
 
 changeSection(mainBox, iconList);
 addScrollEvent(document.body, scrollSection, false);
-addEvent(groupUp, "click", prevSectionThree, false);
-addEvent(groupDown, "click", nextSectionThree, false);
+addEvent(document, "keydown", scrollSection, false);

@@ -174,16 +174,14 @@ a{
 }
 #nav #logo {
     height: 100%;
+    background-color: #fff;
+}
+#nav #logo>div{
+    margin-left: 20px;
 }
 #nav #logo img {
     height: 40px;
     margin: 10px;
-}
-#nav #offset{
-    width:20px;
-    height: 100%;
-    display: inline-block;
-    background-color: #fff;
 }
 #nav #logo div{
     height: 100%;
@@ -191,30 +189,43 @@ a{
     vertical-align: top;
     background-color: #6cbfef;
 }
-#nav .li{
+#nav li{
     display: inline-block;
     height: 60px;
     vertical-align: top;
     cursor:pointer;
 }
-#nav .li span{
+#nav li p{
+    margin: 20px;
+    font-size: 15px;
     backface-visibility: hidden;
     -moz-backface-visibility: hidden;
+    -webkit-transition: transform .3s;
+    -o-transition: transform .3s;
+    transition: transform .3s;
+    -ms-transition: transform .3s;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
 }
-#nav .li a{
+#nav li a{
     -webkit-transition: -webkit-transform .3s ease-in-out;
     transition: transform .3s ease-in-out;
+    background-color: #fff;
+    text-decoration: none;
 }
-#nav .li:hover a,#nav .li a[isselected=true]{
+#nav li:hover a,#nav li a[isselected=true]{
     -webkit-transform: rotateX(-180deg);
     transform: rotateX(-180deg);
     -moz-transform: rotateX(-180deg);
     -o-transform: rotateX(-180deg);
 }
-#nav .join{
-    background-color: #fff;
-    display: inline-block;
-    vertical-align: top;
+#nav .join:hover a{
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+    -moz-transform: rotateX(0);
+    -o-transform: rotateX(0);
 }
 #nav .join:hover .joinBtn{
     opacity: 0.7;
@@ -226,6 +237,7 @@ a{
     border-radius: 12px;
     width: 94px;
     height: 24px;
+    text-align: center;
 }
 #menuDisappear{
     background-color: #fff;
@@ -237,20 +249,15 @@ a{
     display: block;
     top:20px;
 }
-#unique{
-    padding-left: 10px;
+#nav #logo>p{
+    margin-left: 10px;
     font-size: 18px;
     line-height: 60px;
     display: inline-block;
     vertical-align: top;
-    background-color: #fff;
 }
 .XCenter{
     margin:0 auto;
-}
-.clapBg, .listPicContainer {
-    background-color: #fff;
-    height: 100%;
 }
 .listPic{
     height: 48%;
@@ -278,30 +285,8 @@ a{
     transform-origin: center 0 0;
     -moz-transform-origin: center 0 0;
     width: 100%;
-}
-.clapBg, .listSpan {
-    -webkit-transition: transform .3s;
-    -o-transition: transform .3s;
-    transition: transform .3s;
-    -ms-transition: transform .3s;
-}
-.clapBg {
-    width: 101%;
-    z-index: -2;
-    top: 0;
-    backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-}
-#nav .listSpan {
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    margin: 20px;
-    display: block;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    font-size: 15px;
+    background-color: #fff;
+    height: 100%;
 }
 #nav a{
     height: 60px;
@@ -312,11 +297,6 @@ a{
     line-height: 24px;
     display: inline-block;
 }
-#nav .sin {
-    -webkit-transition: -webkit-transform .3s ease;
-    transition: transform .3s ease;
-    -o-transition: transform .3s ease;
-}
 .XYCenter{
     top: 50%;
     left: 50%;
@@ -326,16 +306,12 @@ a{
     -o-transform: translate(-50%,-50%);
     -webkit-transform: translate(-50%,-50%);
 }
-#load2, #wave, .clapBg {
-    position: absolute;
-}
 #main{
     position: relative;
 }
 .mainBox{
     position: absolute;
     overflow: hidden;
-    /*display: none;*/
     top: 0;
     height: 100%;
     width: 100%;
@@ -352,46 +328,45 @@ a{
     position: absolute;
     width:100%;
 }
-.mainBox[active=true]{
-    display: block;
-}
-#load1,#load2Container{
+#load1,#loadImgCover{
     position: absolute;
     z-index: 102;
     width: 29%;
     left: 35%;
     bottom: 51%;
 }
-#nav,#load2,#wave{
+#nav,#wave{
     width:100%;
 }
 #cover{
     background-color: #f7f7f7;
     position: fixed;
-    -o-transition: opacity 1s;
-    -webkit-transition: opacity 1s;
-    transition: opacity 1s;
+    -o-transition: opacity 1s 0.5s;
+    -webkit-transition: opacity 1s 0.5s;
+    transition: opacity 1s 0.5s;
     opacity: 1;
     z-index: 1;
 }
-#load2Container{
-    z-index: 1;
-    -webkit-transition: top .5s linear;
-    transition: top .5s linear;
+#loadImgCover{
+    z-index: 5;
     overflow: hidden;
 }
+#loadImgCover>div{
+    width:100%;
+    height:150px;
+    background-color: #f7f7f7;
+}
 #load2{
-    left:1%;
-    bottom: 0;
+    position: absolute;
+    left:35.3%;
+    bottom: 51%;
+    width:29%;
+    z-index: 3;
 }
 #wave{
+    position: absolute;
     height: 20px;
-    z-index: 3;
-    transition: opacity .5s;
-    -o-transition: opacity .5s;
-    -ms-transition: opacity .5s;
-    -moz-transition: opacity .5s;
-    -webkit-transition: opacity .5s;
+    z-index: 5;
 }
 #slogan{
     z-index: 1;
@@ -564,7 +539,7 @@ a{
     height:100%;
     vertical-align: top;
 }
-#intrImg div[aspect="f"] {
+#intrImg div[aspect="fan"] {
     transform: rotateX(180deg);
     -moz-transform: rotateX(180deg);
     -ms-transform: rotateX(180deg);
@@ -608,10 +583,10 @@ a{
     -ms-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
-#intrImg .z{
+#intrImg .zheng{
     z-index:1;
 }
-#intrImg .f{
+#intrImg .fan{
     z-index: -1;
     transform: rotateX(180deg);
     -webkit-transform: rotateX(180deg);
@@ -646,16 +621,13 @@ a{
 #intrButton{
     margin-left: 0;
     top: 90%;
-    display: flex;
-    width: 300px;
-    -webkit-justify-content: space-around;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
+    width: 100px;
     z-index: 1;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
+}
+#intrButton li{
+    width:50%;
+    display: inline-block;
+    text-align: center;
 }
 .dot[check=true], .eventDot[check=true], .intrDot[check=true], .joinDot[check=true], .worksDot[check=true] {
     background-color: #000;
@@ -690,6 +662,12 @@ a{
 #groupLeft>div.groupImgWrap{
     width:85%;
 }
+#groupImgContainer li{
+    position: relative;
+}
+#groupImgContainer li img{
+    width:60%;
+}
 .groupArrow{
     height: 17px;
     width: 17px;
@@ -708,8 +686,11 @@ a{
     border-left: solid #000 1px;
     border-bottom: solid #000 1px;
 }
-.dot{
-    margin:128% auto;
+#groupButton li{
+    padding: 10px;
+}
+#groupButton li .dot{
+    margin-left: 5px;
 }
 #groupImgContainer{
     position: relative;
@@ -726,23 +707,19 @@ a{
     overflow: hidden;
     position: relative;
 }
-#groupRight>div.groupIntr{
+#groupRight>ul{
+    position: relative;
     min-height: 380px;
     width: 70%;
     height: 35%;
+    overflow: hidden;
 }
-#groupNameContainer{
-    position: relative;
-    height:40%;
-}
-.groupNameImg{
+#groupRight>ul li{
+    position: absolute;
     width:100%;
-}
-#groupNameContainer img{
-    opacity:0;
+    height:100%;
+    opacity: 0;
     -webkit-opacity:0;
-    -moz-opacity: 0;
-    -khtml-opacity: 0;
     filter:alpha(opacity=0);
     transition: all .8s;
     -ms-transition: all .8s;
@@ -750,32 +727,27 @@ a{
     -webkit-transition: all .8s;
     -o-transition: all .8s;
 }
-#groupIntrContent{
+#groupRight>ul li>div.imgNameContainer{
+    position: relative;
+    height: 40%;
+}
+#groupRight>ul img{
+    width:100%;
+    margin:0 auto;
+}
+#groupRight>ul p{
     position: relative;
     height: 60%;
     word-wrap: break-word;
     word-break: normal;
-}
-#groupIntrContent p{
-    position: absolute;
     font-size: 16px;
     line-height: 2em;
-    opacity:0;
-    -webkit-opacity:0;
-    -moz-opacity: 0;
-    -khtml-opacity: 0;
-    filter:alpha(opacity=0);
-    transition: all .8s;
-    -ms-transition: all .8s;
-    -moz-transition: all .8s;
-    -webkit-transition: all .8s;
-    -o-transition: all .8s;
 }
 #year{
     position: relative;
     z-index: 1;
     height: 150%;
-    width: 1px;
+    width: 0;
     top: -25%;
     left: 12%;
     background-color: #D9D5D5;
@@ -795,24 +767,20 @@ a{
 }
 #eventRight{
     position: absolute;
-    left: 12%;
+    top:0;
+    right: 0;
     width: 88%;
     height: 100%;
-    top: 0;
+    border-left: 1px solid #d9d5d5;
     overflow: hidden;
 }
 #eventButton{
     top: 90%;
-    display: flex;
-    width: 300px;
-    -webkit-justify-content: space-around;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
     z-index: 1;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
+}
+#eventButton li{
+    padding: 10px;
+    display: inline-block;
 }
 .eventImgCon{
     width: 75%;
@@ -989,4 +957,19 @@ a{
     bottom:0;
     color: #fff;
     margin-bottom: 10px;
+}
+#gallery {
+    position: absolute;
+    top:25%;
+    height:36%;
+    white-space: nowrap;
+    transition: all .8s ease-out;
+    -ms-transition: all .8s ease-out;
+    -moz-transition: all .8s ease-out;
+    -webkit-transition: all .8s ease-out;
+    -o-transition: all .8s ease-out;
+}
+#gallery img{
+    height: 100%;
+    display: inline;
 }
