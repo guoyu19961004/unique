@@ -227,6 +227,12 @@ a{
     -moz-transform: rotateX(0);
     -o-transform: rotateX(0);
 }
+#nav .join a[isselected=true]{
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+    -moz-transform: rotateX(0);
+    -o-transform: rotateX(0);
+}
 #nav .join:hover .joinBtn{
     opacity: 0.7;
     -moz-opacity:0.7;
@@ -972,4 +978,230 @@ a{
 #gallery img{
     height: 100%;
     display: inline;
+}
+#workImg {
+    position: absolute;
+    top: 18%;
+    width:1000%;
+    height: 50%;
+    white-space: nowrap;
+    transition: left .7s cubic-bezier(.82,.03,.41,.59) .3s;
+    -ms-transition: left .7s .8s .3s;
+    -moz-transition: left .7s .8s cubic-bezier(.82,.03,.41,.59) .3s;
+    -webkit-transition: left .7s cubic-bezier(.82,.03,.41,.59) .3s;
+    -o-transition: left .7s cubic-bezier(.82,.03,.41,.59) .3s;
+}
+#workImg>div{
+    width:10%;
+    height:100%;
+    display: inline-block;
+}
+#workImg>div img{
+    height:100%;
+    margin:0 auto;
+    display: block;
+}
+#workButton {
+    top:90%;
+}
+#workButton li{
+    padding: 7px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.workArrow{
+    transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    height: 17px;
+    width: 17px;
+    display: block;
+}
+#workPrevArrow{
+    border-left: 2px solid #000;
+    border-top: 2px solid #000;
+}
+#workNextArrow{
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
+}
+#worksIntrWrap{
+    top:70%;
+    width:570px;
+    height: 18%;
+    text-align: center;
+}
+#worksIntr{
+    position: relative;
+    height: 50%;
+}
+#worksIntr li{
+    position: absolute;
+    width: 100%;
+    font-size: 14px;
+    line-height: 2em;
+    opacity: 0;
+    -webkit-opacity: 0;
+    filter:alpha(opacity=100);
+    -webkit-transition: opacity .8s;
+    -o-transition: opacity .8s;
+    transition: opacity .8s;
+}
+.worksIntrTitle {
+    margin-top: 3%;
+    height:40%;
+}
+.worksIntrTitle img{
+    height:70%;
+    display: inline-block;
+    vertical-align: top;
+}
+#worksIntrTitleList{
+    position: relative;
+    height: 70%;
+    margin:0 20px;
+    display: inline-block;
+    vertical-align: top;
+    -webkit-transition: width 1s;
+    -o-transition: width 1s;
+    transition: width 1s;
+}
+#worksIntrTitleList li{
+    position: absolute;
+    width:auto;
+    font-size: 20px;
+    opacity: 0;
+    -webkit-opacity: 0;
+    filter:alpha(opacity=100);
+    -webkit-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+    white-space: nowrap;
+}
+.rouleau-shake{
+    animation: shake .5s ease-in-out infinite alternate;
+    -webkit-animation: shake .5s ease-in-out infinite alternate;
+    -o-animation: shake .5s ease-in-out infinite alternate;
+}
+#joinButton{
+    left:50px;
+}
+#joinButton li{
+    padding: 20px 0;
+}
+#joinButton span{
+    margin-left: 10px;
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+#joinButton a{
+    display: inline-block;
+    vertical-align: middle;
+}
+#joinCon{
+    height: 200%;
+    width:70%;
+    min-width: 900px;
+    margin:0 auto;
+}
+#joinCon>div{
+    width:100%;
+    height: 50%;
+}
+#joinCon>div form{
+    height: 372px;
+}
+form[name="join"]>ul{
+    margin-left: 66px;
+    width:450px;
+    display: inline-block;
+    vertical-align: top;
+}
+form[name="join"]>div{
+    display: inline-block;
+    vertical-align: top;
+}
+form[name="join"]>ul>li{
+    line-height: 50px;
+}
+form[name="join"] span{
+    font-size: 16px;
+    display: inline-block;
+    font-weight: 300;
+}
+form[name="join"] span.intr-text{
+    width:120px;
+    text-align: right;
+    margin-right:30px;
+}
+form[name="join"] input[type="text"]{
+    width:200px;
+    font-size: 14px;
+    padding: 7px 0;
+    border-radius: 3px;
+    border:1px solid #C0BABA;
+    font-weight: thin;
+    color: #555;
+}
+form[name="join"] input[type="radio"]{
+    width:30px;
+}
+form[name="join"] p{
+    font-size: 16px;
+    line-height: 50px;
+}
+form[name="join"]>div.right-part{
+    margin-right: 66px;
+}
+form[name="join"] textarea{
+    width: 335px;
+    height: 220px;
+    font-size: 14px;
+    margin-bottom: 32px;
+    resize: none;
+    border: 1px solid #C0BABA;
+    border-radius: 3px;
+    overflow: hidden;
+}
+form[name="join"] input::-moz-input-placeholder, form[name="join"] textarea::-moz-input-placeholder {
+    font-family: Arial;
+    font-size: 14px;
+}
+form[name="join"] input:-moz-input-placeholder, form[name="join"] textarea:-moz-input-placeholder {
+    font-family: Arial;
+    font-size: 14px;
+}
+form[name="join"] input::-ms-input-placeholder, form[name="join"] textarea::-ms-input-placeholder {
+    font-family: Arial;
+    font-size: 14px;
+}
+form[name="join"] input::input-placeholder, form[name="join"] textarea::input-placeholder {
+    font-family: Arial;
+    font-size: 14px;
+}
+form[name="join"] input:focus::-webkit-input-placeholder, form[name="join"] textarea:focus::-webkit-input-placeholder {
+    color: #fff;
+}
+form[name="join"] input:focus::-moz-input-placeholder, form[name="join"] textarea:focus::-moz-input-placeholder {
+    color: #fff;
+}
+form[name="join"] input:focus:-moz-input-placeholder, form[name="join"] textarea:focus:-moz-input-placeholder {
+    color: #fff;
+}
+form[name="join"] input:focus::-ms-input-placeholder, form[name="join"] textarea:focus::-ms-input-placeholder {
+    color: #fff;
+}
+form[name="join"] input[type="submit"]{
+    display: block;
+    width: 170px;
+    height: 43px;
+    background-color: #6AC0EF;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 17px;
+    margin: 0 auto;
 }

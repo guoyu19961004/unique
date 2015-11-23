@@ -160,6 +160,18 @@ var yearCenter = getAttrEle(yearList, 'value', 'center');
 var yearBottom = getAttrEle(yearList, 'value', 'bottom');
 var eventButtonList = document.getElementById('eventButton').getElementsByTagName('a');
 var eventContentList = del_ff(document.getElementById('eventRight')).childNodes;
+//作品
+var gallery = document.getElementById('gallery');
+var worksImgWrap = document.getElementById('workImg');
+var worksIntrList = document.getElementById('worksIntr').getElementsByTagName('li');
+var worksIntrTitle = document.getElementById('worksIntrTitleList');
+var worksIntrTitleList = worksIntrTitle.getElementsByTagName('li');
+var worksButtonList = getUsefulList(document.getElementById('workButton').getElementsByTagName('a'), "check");
+var prevWork = document.getElementById('workPrevArrow');
+var nextWork = document.getElementById('workNextArrow');
+worksIntrTitle.style.width = worksIntrTitleList[0].offsetWidth + 20 + "px";
+console.log(worksIntrTitle.previousElementSibling);
+console.log(worksIntrTitle.nextElementSibling);
 var animated = false;
 
 function scrollShow(ele) {
@@ -334,7 +346,7 @@ function changeEvent(prevIndex, activeIndex) {
     var activeIndexList = del_ff(eventContentList[activeIndex]).childNodes;
     var i;
     for (i = 0; i < prevIndexList.length; i++) {
-        prevIndexList[i].style.cssText = "opacity:0;-webkit-opacity:0;-moz-opacity: 0;-khtml-opacity: 0;filter:alpha(opacity=0);";
+        prevIndexList[i].style.cssText = "opacity:0;-webkit-opacity:0;filter:alpha(opacity=0);";
     }
     setTimeout(function() {
         eventContentList[prevIndex].setAttribute('see', '0');
@@ -342,12 +354,12 @@ function changeEvent(prevIndex, activeIndex) {
     }, 600);
     setTimeout(function() {
         for (i = 0; i < activeIndexList.length; i++) {
-            activeIndexList[i].style.cssText = "opacity:1;-webkit-opacity:1;-moz-opacity: 1;-khtml-opacity: 1;filter:alpha(opacity=100);";
+            activeIndexList[i].style.cssText = "opacity:1;-webkit-opacity:1;filter:alpha(opacity=100);";
         }
     }, 800);
 }
 
-function changeSectionFour(yearList, buttonList) {
+function changeSectionFour(buttonList) {
     for (var k = 0; k < buttonList.length; k++) {
         var activeIndex;
         buttonList[k].onclick = (function(k) {
@@ -361,6 +373,45 @@ function changeSectionFour(yearList, buttonList) {
                 if (buttonList[k].getAttribute("check") === "false") {
                     changeYear(activeIndex, k);
                     changeEvent(activeIndex, k);
+                    buttonList[k].setAttribute("check", "true");
+                    buttonList[activeIndex].setAttribute("check", "false");
+                    activeIndex = k;
+                }
+            }
+        })(k);
+    }
+}
+
+function changeWork(prevIndex, activeIndex) {
+    worksIntrList[prevIndex].style.cssText = "opacity:0;-webkit-opacity:0;filter:alpha(opacity=0);";
+    worksIntrTitleList[prevIndex].style.cssText = "opacity:0;-webkit-opacity:0;filter:alpha(opacity=0);";
+    worksImgWrap.style.left = -activeIndex * 100 + "%";
+    gallery.style.left = -activeIndex * 500 + "px";
+    worksIntrTitle.style.width = worksIntrTitleList[activeIndex].offsetWidth + 20 + "px";
+    setTimeout(function() {
+        worksIntrTitle.nextElementSibling.className = "rouleau-shake";
+        worksIntrTitle.previousElementSibling.className = "rouleau-shake";
+    }, 1000);
+    setTimeout(function  () {
+        worksIntrTitle.nextElementSibling.className = "";
+        worksIntrTitle.previousElementSibling.className = "";
+    },1500);
+    worksIntrList[activeIndex].style.cssText = "opacity:1;-webkit-opacity:1;filter:alpha(opacity=100);";
+    worksIntrTitleList[activeIndex].style.cssText = "opacity:1;-webkit-opacity:1;filter:alpha(opacity=100);";
+}
+
+function changeSectionFive(buttonList) {
+    for (var k = 0; k < buttonList.length; k++) {
+        var activeIndex;
+        buttonList[k].onclick = (function(k) {
+            return function() {
+                for (var i = 0; i < buttonList.length; i++) {
+                    if (buttonList[i].getAttribute("check") === "true") {
+                        activeIndex = i;
+                    }
+                }
+                if (buttonList[k].getAttribute("check") === "false") {
+                    changeWork(activeIndex, k);
                     buttonList[k].setAttribute("check", "true");
                     buttonList[activeIndex].setAttribute("check", "false");
                     activeIndex = k;
@@ -500,9 +551,9 @@ function scrollSectionTwo(event) {
     if (!animated) {
         if (delta) {
             if (delta > 0) {
-                prevSection();
+                prevSectionTwo();
             } else if (delta < 0) {
-                nextSection();
+                nextSectionTwo();
             }
         } else if (curryKey) {
             switch (curryKey) {
@@ -572,9 +623,9 @@ function scrollSectionThree(event) {
     if (!animated) {
         if (delta) {
             if (delta > 0) {
-                prevSection();
+                prevSectionThree();
             } else if (delta < 0) {
-                nextSection();
+                nextSectionThree();
             }
         } else if (curryKey) {
             switch (curryKey) {
@@ -603,7 +654,6 @@ function nextSectionFour() {
             activeIndex = i;
         }
     }
-    console.log(activeIndex);
     if (activeIndex < eventButtonList.length - 1) {
         changeYear(activeIndex, activeIndex + 1);
         changeEvent(activeIndex, activeIndex + 1);
@@ -612,7 +662,7 @@ function nextSectionFour() {
     } else {
         removeScrollEvent(document.body, scrollSectionFour, false);
         nextSection();
-        addScrollEvent(document.body, scrollSection, false);
+        addScrollEvent(document.body, scrollSectionFive, false);
     }
 }
 
@@ -643,9 +693,9 @@ function scrollSectionFour(event) {
     if (!animated) {
         if (delta) {
             if (delta > 0) {
-                prevSection();
+                prevSectionFour();
             } else if (delta < 0) {
-                nextSection();
+                nextSectionFour();
             }
         } else if (curryKey) {
             switch (curryKey) {
@@ -654,6 +704,73 @@ function scrollSectionFour(event) {
                     break;
                 case 38:
                     prevSectionFour();
+                    break;
+                default:
+                    break;
+            }
+        }
+        animated = true;
+        setTimeout(function() {
+            animated = false;
+        }, 1500);
+    }
+}
+
+function nextSectionFive() {
+    var activeIndex, i;
+    for (i = 0; i < worksButtonList.length; i++) {
+        if (worksButtonList[i].getAttribute("check") === "true") {
+            activeIndex = i;
+        }
+    }
+    if (activeIndex < worksButtonList.length - 1) {
+        changeWork(activeIndex, activeIndex + 1);
+        worksButtonList[activeIndex + 1].setAttribute("check", "true");
+        worksButtonList[activeIndex].setAttribute("check", "false");
+    } else {
+        removeScrollEvent(document.body, scrollSectionFive, false);
+        nextSection();
+        addScrollEvent(document.body, scrollSection, false);
+    }
+}
+
+function prevSectionFive() {
+    var activeIndex;
+    var i;
+    for (i = 0; i < worksButtonList.length; i++) {
+        if (worksButtonList[i].getAttribute("check") === "true") {
+            activeIndex = i;
+        }
+    }
+    if (activeIndex > 0) {
+        changeWork(activeIndex, activeIndex - 1);
+        worksButtonList[activeIndex - 1].setAttribute("check", "true");
+        worksButtonList[activeIndex].setAttribute("check", "false");
+    } else {
+        //removeScrollEvent(document.body, scrollSectionFive, false);
+        prevSection();
+        addScrollEvent(document.body, scrollSectionFour, false);
+    }
+}
+
+function scrollSectionFive(event) {
+    event = event || window.event;
+    var delta = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+    var curryKey = event.keyCode || event.which || event.charCode;
+    if (!animated) {
+        if (delta) {
+            if (delta > 0) {
+                prevSectionFive();
+            } else if (delta < 0) {
+                nextSectionFive();
+            }
+        } else if (curryKey) {
+            switch (curryKey) {
+                case 39:
+                    nextSectionFive();
+                    break;
+                case 37:
+                    prevSectionFive();
                     break;
                 default:
                     break;
@@ -687,7 +804,10 @@ function judge(prevIndex, activeIndex) {
             removeEvent(document, "keydown", scrollSectionFour, false);
             break;
         case 4:
-            //removeScrollEvent(document.body, scrollSectionFive, false);
+            removeEvent(prevWork, "click", prevSectionFive, false);
+            removeEvent(nextWork, "click", nextSectionFive, false);
+            removeScrollEvent(document.body, scrollSectionFive, false);
+            removeEvent(document, "keydown", scrollSectionFive, false);
             break;
         case 5:
             //removeScrollEvent(document.body, scrollSectionSix, false);
@@ -714,12 +834,16 @@ function judge(prevIndex, activeIndex) {
             break;
         case 3:
             judgeYear(0);
-            changeSectionFour(yearList, eventButtonList);
+            changeSectionFour(eventButtonList);
             addEvent(document, "keydown", scrollSectionFour, false);
             addScrollEvent(document, scrollSectionFour, false);
             break;
         case 4:
-            //addScrollEvent(document.body, scrollSectionFive, false);
+            changeSectionFive(worksButtonList);
+            addEvent(prevWork, "click", prevSectionFive, false);
+            addEvent(nextWork, "click", nextSectionFive, false);
+            addScrollEvent(document.body, scrollSectionFive, false);
+            addEvent(document, "keydown", scrollSectionFive, false);
             break;
         case 5:
             //addScrollEvent(document.body, scrollSectionSix, false);
