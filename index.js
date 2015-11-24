@@ -170,8 +170,10 @@ var worksButtonList = getUsefulList(document.getElementById('workButton').getEle
 var prevWork = document.getElementById('workPrevArrow');
 var nextWork = document.getElementById('workNextArrow');
 worksIntrTitle.style.width = worksIntrTitleList[0].offsetWidth + 20 + "px";
-console.log(worksIntrTitle.previousElementSibling);
-console.log(worksIntrTitle.nextElementSibling);
+//加入及联系
+var radioList = getClassList(document.forms.join.getElementsByTagName('li'), "radio-wrap");
+var joinWrap = document.getElementById('joinCon');
+var joinButtonList = document.getElementById('joinButton').getElementsByTagName('a');
 var animated = false;
 
 function scrollShow(ele) {
@@ -388,14 +390,12 @@ function changeWork(prevIndex, activeIndex) {
     worksImgWrap.style.left = -activeIndex * 100 + "%";
     gallery.style.left = -activeIndex * 500 + "px";
     worksIntrTitle.style.width = worksIntrTitleList[activeIndex].offsetWidth + 20 + "px";
+    worksIntrTitle.nextElementSibling.className = "rouleau-shake";
+    worksIntrTitle.previousElementSibling.className = "rouleau-shake";
     setTimeout(function() {
-        worksIntrTitle.nextElementSibling.className = "rouleau-shake";
-        worksIntrTitle.previousElementSibling.className = "rouleau-shake";
-    }, 1000);
-    setTimeout(function  () {
         worksIntrTitle.nextElementSibling.className = "";
         worksIntrTitle.previousElementSibling.className = "";
-    },1500);
+    }, 1500);
     worksIntrList[activeIndex].style.cssText = "opacity:1;-webkit-opacity:1;filter:alpha(opacity=100);";
     worksIntrTitleList[activeIndex].style.cssText = "opacity:1;-webkit-opacity:1;filter:alpha(opacity=100);";
 }
@@ -412,6 +412,62 @@ function changeSectionFive(buttonList) {
                 }
                 if (buttonList[k].getAttribute("check") === "false") {
                     changeWork(activeIndex, k);
+                    buttonList[k].setAttribute("check", "true");
+                    buttonList[activeIndex].setAttribute("check", "false");
+                    activeIndex = k;
+                }
+            }
+        })(k);
+    }
+}
+
+function getSameAttrList(ele, attr, allList) {
+    var result = [];
+    var i, j = 0;
+    for (i = 0; i < allList.length; i++) {
+        if (allList[i].getAttribute(attr) === ele.getAttribute(attr)) {
+            result[j] = allList[i];
+            j++;
+        }
+    }
+    return result;
+}
+
+function changeRadio(radioList) {
+    for (var k = 0; k < radioList.length; k++) {
+        var activeIndex;
+        radioList[k].onclick = (function(k) {
+            return function() {
+                if (radioList[k].getAttribute("checked") !== "true") {
+                    var sameAttrList = getSameAttrList(radioList[k], "name", radioList);
+                    for (var i = 0; i < sameAttrList.length; i++) {
+                        if (radioList[k].getAttribute("checked") !== "true" && sameAttrList[i].getAttribute("checked") === "true") {
+                            radioList[k].setAttribute("checked", "true");
+                            sameAttrList[i].setAttribute("checked", "");
+                            del_ff(radioList[k]).childNodes[0].setAttribute("checked", "true");
+                            del_ff(radioList[k]).childNodes[1].setAttribute("checked", "true");
+                            del_ff(sameAttrList[i]).childNodes[0].setAttribute("checked", "");
+                            del_ff(sameAttrList[i]).childNodes[1].setAttribute("checked", "");
+                        }
+                    }
+                }
+            }
+        })(k);
+    }
+}
+
+function changeSectionSix(buttonList) {
+    for (var k = 0; k < buttonList.length; k++) {
+        var activeIndex;
+        buttonList[k].onclick = (function(k) {
+            return function() {
+                for (var i = 0; i < buttonList.length; i++) {
+                    if (buttonList[i].getAttribute("check") === "true") {
+                        activeIndex = i;
+                    }
+                }
+                if (buttonList[k].getAttribute("check") === "false") {
+                    joinWrap.style.cssText += "top:" + (-k * 100) + "%";
                     buttonList[k].setAttribute("check", "true");
                     buttonList[activeIndex].setAttribute("check", "false");
                     activeIndex = k;
@@ -730,7 +786,7 @@ function nextSectionFive() {
     } else {
         removeScrollEvent(document.body, scrollSectionFive, false);
         nextSection();
-        addScrollEvent(document.body, scrollSection, false);
+        addScrollEvent(document.body, scrollSectionSix, false);
     }
 }
 
@@ -747,7 +803,7 @@ function prevSectionFive() {
         worksButtonList[activeIndex - 1].setAttribute("check", "true");
         worksButtonList[activeIndex].setAttribute("check", "false");
     } else {
-        //removeScrollEvent(document.body, scrollSectionFive, false);
+        removeScrollEvent(document.body, scrollSectionFive, false);
         prevSection();
         addScrollEvent(document.body, scrollSectionFour, false);
     }
@@ -783,6 +839,68 @@ function scrollSectionFive(event) {
     }
 }
 
+function nextSectionSix() {
+    var activeIndex;
+    for (var i = 0; i < joinButtonList.length; i++) {
+        if (joinButtonList[i].getAttribute("check") === "true") {
+            activeIndex = i;
+        }
+    }
+    if (activeIndex < joinButtonList.length - 1) {
+        joinWrap.style.cssText += "top:" + (-(activeIndex + 1) * 100) + "%";
+        joinButtonList[activeIndex + 1].setAttribute("check", "true");
+        joinButtonList[activeIndex].setAttribute("check", "false");
+    }
+}
+
+function prevSectionSix() {
+    var activeIndex;
+    for (var i = 0; i < joinButtonList.length; i++) {
+        if (joinButtonList[i].getAttribute("check") === "true") {
+            activeIndex = i;
+        }
+    }
+    if (activeIndex > 0) {
+        joinWrap.style.cssText += "top:" + (-(activeIndex - 1) * 100) + "%";
+        joinButtonList[activeIndex - 1].setAttribute("check", "true");
+        joinButtonList[activeIndex].setAttribute("check", "false");
+    }else{
+        removeScrollEvent(document.body, scrollSectionSix, false);
+        prevSection();
+        addScrollEvent(document.body, scrollSectionFive, false);
+    }
+}
+
+function scrollSectionSix(event) {
+    event = event || window.event;
+    var delta = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+    var curryKey = event.keyCode || event.which || event.charCode;
+    if (!animated) {
+        if (delta) {
+            if (delta > 0) {
+                prevSectionSix();
+            } else if (delta < 0) {
+                nextSectionSix();
+            }
+        } else if (curryKey) {
+            switch (curryKey) {
+                case 40:
+                    nextSectionSix();
+                    break;
+                case 38:
+                    prevSectionSix();
+                    break;
+                default:
+                    break;
+            }
+        }
+        animated = true;
+        setTimeout(function() {
+            animated = false;
+        }, 800);
+    }
+}
+
 function judge(prevIndex, activeIndex) {
     removeScrollEvent(document.body, scrollSection, false);
     removeEvent(document, "keydown", scrollSection, false);
@@ -810,7 +928,8 @@ function judge(prevIndex, activeIndex) {
             removeEvent(document, "keydown", scrollSectionFive, false);
             break;
         case 5:
-            //removeScrollEvent(document.body, scrollSectionSix, false);
+            removeEvent(document, "keydown", scrollSectionSix, false);
+            removeScrollEvent(document.body, scrollSectionSix, false);
             break;
         default:
             break;
@@ -846,7 +965,10 @@ function judge(prevIndex, activeIndex) {
             addEvent(document, "keydown", scrollSectionFive, false);
             break;
         case 5:
-            //addScrollEvent(document.body, scrollSectionSix, false);
+            changeRadio(radioList);
+            changeSectionSix(joinButtonList);
+            addEvent(document, "keydown", scrollSectionSix, false);
+            addScrollEvent(document.body, scrollSectionSix, false);
             break;
         default:
             break;

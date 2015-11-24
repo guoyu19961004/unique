@@ -1081,9 +1081,9 @@ a{
     white-space: nowrap;
 }
 .rouleau-shake{
-    animation: shake .5s ease-in-out infinite alternate;
-    -webkit-animation: shake .5s ease-in-out infinite alternate;
-    -o-animation: shake .5s ease-in-out infinite alternate;
+    animation: shake .2s ease-in-out 1s 2 alternate;
+    -webkit-animation: shake .2s ease-in-out 1s 2 alternate;
+    -o-animation: shake .2s ease-in-out 1s 2 alternate;
 }
 #joinButton{
     left:50px;
@@ -1105,17 +1105,20 @@ a{
     height: 200%;
     width:70%;
     min-width: 900px;
-    margin:0 auto;
+    -webkit-transition: top 0.5s ease-in-out;
+    -o-transition: top 0.5s ease-in-out;
+    transition: top 0.5s ease-in-out;
 }
 #joinCon>div{
+    position:relative;
     width:100%;
     height: 50%;
 }
-#joinCon>div form{
-    height: 372px;
+form[name="join"]{
+    width:840px;
 }
 form[name="join"]>ul{
-    margin-left: 66px;
+    margin-right: 50px;
     width:450px;
     display: inline-block;
     vertical-align: top;
@@ -1124,7 +1127,7 @@ form[name="join"]>div{
     display: inline-block;
     vertical-align: top;
 }
-form[name="join"]>ul>li{
+form[name="join"] ul li{
     line-height: 50px;
 }
 form[name="join"] span{
@@ -1136,6 +1139,7 @@ form[name="join"] span.intr-text{
     width:120px;
     text-align: right;
     margin-right:30px;
+    vertical-align: top;
 }
 form[name="join"] input[type="text"]{
     width:200px;
@@ -1145,16 +1149,20 @@ form[name="join"] input[type="text"]{
     border:1px solid #C0BABA;
     font-weight: thin;
     color: #555;
+    display: inline-block;
+    vertical-align: middle;
 }
 form[name="join"] input[type="radio"]{
-    width:30px;
+    width:18px;
+    margin-right: 5px;
+    display: inline-block;
+    opacity: 0;
+    -webkit-opacity:0;
+    filter:alpha(opacity=0);
 }
 form[name="join"] p{
     font-size: 16px;
     line-height: 50px;
-}
-form[name="join"]>div.right-part{
-    margin-right: 66px;
 }
 form[name="join"] textarea{
     width: 335px;
@@ -1204,4 +1212,116 @@ form[name="join"] input[type="submit"]{
     color: #fff;
     font-size: 17px;
     margin: 0 auto;
+}
+form[name="join"] ul.radio-list{
+    width:300px;
+    display: inline-block;
+    vertical-align: top;
+}
+form[name="join"] ul.radio-list>li{
+    position: relative;
+    display: inline-block;
+    margin-right: 5px;
+    cursor:default;
+}
+form[name="join"] ul.group-radio-list{
+    margin-top:15px;
+    line-height: 1em;
+}
+form[name="join"] ul.group-radio-list>li{
+    width:90px;
+    line-height: 25px;
+    white-space: nowrap;
+}
+.group-radio-list .radio{
+    top:1px;
+}
+.radio{
+    position: absolute;
+    top:14px;
+    left:0px;
+    height: 18px;
+    width: 18px;
+    background-image: url("images/radio.jpg");
+    background-size: 100% 100%;
+}
+.radio[checked="true"]{
+    background-image: url("images/radioChecked.jpg");
+}
+#joinCon .wrap{
+    width:100%;
+}
+form[name="connect"]{
+    float: left;
+    width: 35%;
+    margin-left: 8%;
+    padding-bottom: 65px;
+    background-image: url(images/form.jpg);
+    background-size: 100% 100%;
+}
+form[name="connect"] p{
+    width:67%;
+    margin:0 auto;
+    font-size: 16px;
+}
+form[name="connect"] span{
+    font-size: 16px;
+}
+form[name="connect"] ul{
+    width:67%;
+    margin:18% auto 0 auto;
+}
+form[name="connect"] li{
+    margin-bottom: 30px;
+}
+form[name="connect"] input[type="text"]{
+    width: 162px;
+    float: right;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid;
+    outline: 0;
+}
+form[name="connect"] textarea{
+    resize: none;
+    margin:0 auto 30px auto;
+    width: 67%;
+    height: 120px;
+    background-color: transparent;
+    border: 1px solid grey;
+    overflow: hidden;
+    display: block;
+}
+form[name="connect"] input[type="submit"]{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 90px;
+    height: 36px;
+    background-color: #6cbfef;
+    border: 0;
+    color: #fff;
+    border-radius: 3px;
+}
+#addres{
+    float: right;
+    width:35%;
+    height: 100%;
+    margin-right: 8%;
+}
+#addres p{
+    font-size: 16px;
+    margin-bottom: 11px;
+}
+#addres ul{
+    height: 54px;
+    margin-bottom: 1.6em;
+}
+#addres ul li{
+    height:100%;
+    margin-right: 20px;
+    display: inline-block;
+}
+#addres ul li img{
+    height:93%;
 }

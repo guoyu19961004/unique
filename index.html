@@ -407,33 +407,83 @@
 				<li><a href="javascript:void(0);" class="joinDot" check="true"></a><span>加入</span></li>
 				<li><a href="javascript:void(0);" class="joinDot" check="false"></a><span>联系</span></li>
 			</ul>
-			<div id="joinCon">
+			<div id="joinCon" class="absoXCenter" style="top:0%">
 				<div class="form-wrap">
-					<form action="" method="post" name="join" class="YCenter">
+					<form action="" method="post" name="join" class="XYCenter">
 						<ul>
 							<li><span class="intr-text">姓名</span><input type="text" name="name"></li>
 							<li>
 								<span class="intr-text">性别</span>
-								<input type="radio" name="sex" value="man" checked="true"><span>男</span>
-								<input type="radio" name="sex" value="woman"><span>女</span>
+								<ul class="radio-list">
+									<li class="radio-wrap" name="sex" checked="true">
+										<input type="radio" name="sex" value="man" checked="true">
+										<span class="radio" checked="true"></span>
+										<span>男</span>
+									</li>
+									<li class="radio-wrap" name="sex">
+										<input type="radio" name="sex" value="woman">
+										<span class="radio"></span>
+										<span>女</span>
+									</li>
+								</ul>
 							</li>
 							<li>
 								<span class="intr-text">所在校区</span>
-								<input type="radio" name="area" value="yy" checked="true"><span>韵苑</span>
-								<input type="radio" name="area" value="qy"><span>沁苑</span>
-								<input type="radio" name="area" value="zs"><span>紫菘</span>
+								<ul class="radio-list">
+									<li class="radio-wrap" name="area" checked="true">
+										<input type="radio" name="area" value="yy" checked="true">
+										<span class="radio" checked="true"></span>
+										<span>韵苑</span>
+									</li>
+									<li class="radio-wrap" name="area">
+										<input type="radio" name="area" value="qy">
+										<span class="radio"></span>
+										<span>沁苑</span>
+									</li>
+									<li class="radio-wrap" name="area">
+										<input type="radio" name="area" value="zs">
+										<span class="radio"></span>
+										<span>紫菘</span>
+									</li>
+								</ul>
 							</li>
 							<li><span class="intr-text">院系/专业/年级</span><input type="text" name="grade" placeholder=" 16字以内"></li>
 							<li><span class="intr-text">联系电话</span><input type="text" name="tel"></li>
 							<li><span class="intr-text">备用电话</span><input type="text" name="otherTel" placeholder="如室友电话"></li>
 							<li>
 								<span class="intr-text">报名组别</span>
-								<input type="radio" name="group" value="android" checked="true"><span>Android</span>
-								<input type="radio" name="group" value="web"><span>Web</span>
-								<input type="radio" name="group" value="ios"><span>iOS</span>
-								<input type="radio" name="group" value="design"><span>Design</span>
-								<input type="radio" name="group" value="pm"><span>PM</span>
-								<input type="radio" name="group" value="lab"><span>Unique Lab</span>
+								<ul class="radio-list group-radio-list">
+									<li class="radio-wrap" name="group" checked="true">
+										<input type="radio" name="group" value="android" checked="true">
+										<span class="radio" checked="true"></span>
+										<span>Android</span>
+									</li>
+									<li class="radio-wrap" name="group">
+										<input type="radio" name="group" value="web">
+										<span class="radio"></span>
+										<span>Web</span>
+									</li>
+									<li class="radio-wrap" name="group">
+										<input type="radio" name="group" value="ios">
+										<span class="radio"></span>
+										<span>iOS</span>
+									</li>
+									<li class="radio-wrap" name="group">
+										<input type="radio" name="group" value="design">
+										<span class="radio"></span>
+										<span>Design</span>
+									</li>
+									<li class="radio-wrap" name="group">
+										<input type="radio" name="group" value="pm">
+										<span class="radio"></span>
+										<span>PM</span>
+									</li>
+									<li class="radio-wrap" name="group">
+										<input type="radio" name="group" value="lab">
+										<span class="radio"></span>
+										<span>Unique Lab</span>
+									</li>
+								</ul>
 							</li>
 						</ul>
 						<div class="right-part">
@@ -445,7 +495,31 @@
 						</div>
 					</form>
 				</div>
-				<div class="form-wrap"></div>
+				<div class="form-wrap">
+					<div class="wrap XYCenter">
+						<form action="" name="connect" method="post">
+							<ul>
+								<li><span>姓名</span><input type="text"></li>
+								<li><span>专业</span><input type="text"></li>
+								<li><span>邮箱</span><input type="text"></li>
+							</ul>
+							<p>想法与建议</p>
+							<textarea name="suggestion" id=""></textarea>
+							<input type="submit" value="提交">
+						</form>
+						<div id="addres">
+							<p style="margin-top:9px;">hr@hustunique.com</p>
+							<p>+86 155-2727-9060 孟涛</p>
+							<ul>
+								<li><a href="http://weibo.com/uniquestudio"><img src="images/sina.jpg" alt=""></a></li>
+								<li><a href="javascript:alert('微信公众号: uniquestudio');"><img src="images/wechat.jpg" alt=""></a></li>
+								<li><a href="http://page.renren.com/601317380"><img src="images/renren.jpg" alt=""></a></li>
+							</ul>
+							<p style="line-height:1.5em;">中国湖北省武汉市洪山区珞瑜路1037号华中科技大学启明学院亮胜楼8楼</p>
+							<p style="line-height:1.5em;">8th Floor, Building LiangSheng, 1037 Luoyu Road, Wuhan 430074, P.R.China</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</secction>
 	</div>
