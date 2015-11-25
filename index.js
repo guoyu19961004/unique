@@ -65,6 +65,7 @@ var height = $(window).height();
 var width = $(window).width();
 document.body.style.height = height + "px";
 document.getElementById('loadImgContainer').style.height = width * 0.5625 + "px";
+
 //loading脚本
 (function() {
     var c = document.getElementById("wave");
@@ -864,7 +865,7 @@ function prevSectionSix() {
         joinWrap.style.cssText += "top:" + (-(activeIndex - 1) * 100) + "%";
         joinButtonList[activeIndex - 1].setAttribute("check", "true");
         joinButtonList[activeIndex].setAttribute("check", "false");
-    }else{
+    } else {
         removeScrollEvent(document.body, scrollSectionSix, false);
         prevSection();
         addScrollEvent(document.body, scrollSectionFive, false);
@@ -975,6 +976,35 @@ function judge(prevIndex, activeIndex) {
     }
 }
 
+function changeWidth() {
+    var i;
+    var activeWidth = $(window).width();
+    document.body.style.height = $(window).height() + "px";
+    if (activeWidth >= 920) {
+        for (i = 0; i < eventContentList.length; i++) {
+            eventContentList[i].style.height = activeWidth * 0.367 + "px";
+        }
+    } else {
+        for (i = 0; i < eventContentList.length; i++) {
+            eventContentList[i].style.height = 920 * 0.367 + "px";
+        }
+    }
+    if (activeWidth <= 1164) {
+        console.log(activeWidth);
+        document.getElementById('backgroundImgContainer').style.width = "1164px";
+        document.getElementById('intrImg').style.height = 1164 * 0.432 + "px";
+        document.getElementById('loadImgContainer').style.width = "1164px";
+        document.getElementById('loadImgContainer').style.height = 1164 * 0.5625 + "px";
+    } else {
+        document.getElementById('backgroundImgContainer').style.width = "100%";
+        document.getElementById('loadImgContainer').style.width = "100%";
+        document.getElementById('loadImgContainer').style.height = activeWidth * 0.5625 + "px";
+    }
+}
+addEvent(window, "resize", changeWidth, false);
 changeSection(mainBox, iconList);
 addScrollEvent(document.body, scrollSection, false);
 addEvent(document, "keydown", scrollSection, false);
+for (var i = 0; i < eventContentList.length; i++) {
+    eventContentList[i].style.height = width * 0.367 + "px";
+}
