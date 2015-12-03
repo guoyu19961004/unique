@@ -61,8 +61,8 @@ function toggleNav() {
 var menuDisappear = document.getElementById('menuDisappear');
 addEvent(menu, "click", toggleNav, false);
 addEvent(menuDisappear, "click", toggleNav, false);
-var height = $(window).height();
-var width = $(window).width();
+var height = window.innerHeight;
+var width = window.innerWidth;
 document.body.style.height = height + "px";
 document.getElementById('loadImgContainer').style.height = width * 0.5625 + "px";
 
@@ -978,8 +978,8 @@ function judge(prevIndex, activeIndex) {
 
 function changeWidth() {
     var i;
-    var activeWidth = $(window).width();
-    document.body.style.height = $(window).height() + "px";
+    var activeWidth = window.innerWidth;
+    document.body.style.height = window.innerHeight + "px";
     if (activeWidth >= 920) {
         for (i = 0; i < eventContentList.length; i++) {
             eventContentList[i].style.height = activeWidth * 0.367 + "px";
